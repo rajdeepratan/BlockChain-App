@@ -8,12 +8,23 @@ class Block{
         this.data = data;
         this.previousHash = previousHash;
         this.hash = this.calculateHash();
+        this.nonce = 0;  //use in mining so that the while loop does not goes in infinite loop
 
     }
     
     //calcuate the hash for block
     calculateHash(){
-        return SHA2567(this.index + this.previousHash + this.timestamp + JSON.stringify(this.data)).toString();
+        return SHA2567(this.index + this.previousHash + this.timestamp + JSON.stringify(this.data) + this.nonce).toString();
+    }
+
+    //Blockchain mining
+    mineBlock(difficulty){
+        while(this.hash.substring(0, difficulty) !== Array(difficulty + 1).join("0")){
+            this.nonce++;
+            this.hash = this.calculateHash();
+
+        }
+        console.log("Block mined: " + this.hash);
     }
 }
 
@@ -22,7 +33,7 @@ class Block{
 class Blockchain{
     constructor(){
         this.chain = [this.createGenesisBlock()];
-
+        this.difficulty = 4; //setting the mining difficulty level
     }
 
     //create first block
@@ -39,7 +50,7 @@ class Blockchain{
     //create a new block in block chain
     addBlock(newBlock){
         newBlock.previousHash = this.getLatestBlock().hash;
-        newBlock.hash = newBlock.calculateHash();
+        newBlock.mineBlock(this.difficulty);
         this.chain.push(newBlock);
     
     }
@@ -65,14 +76,11 @@ class Blockchain{
 
 //create rdCoin
 let rdCoin = new Blockchain();
+
+console.log("Mining block 1...");
 rdCoin.addBlock(new Block(1, "10/06/2018", { amount: 4 }));
+console.log(JSON.stringify(rdCoin, null, 4));
+
+console.log("Mining block 2...");
 rdCoin.addBlock(new Block(2, "12/06/2018", { amount: 10 }));
-
-// console.log(JSON.stringify(rdCoin, null, 4));
-
-console.log('Blockchain valid? ' + rdCoin.isChainValid());
-
-console.log('Changing a block...');
-rdCoin.chain[1].data = { amount: 100 };
-
-console.log('Blockchain valid? ' + rdCoin.isChainValid());
+console.log(JSON.stringify(rdCoin, null, 4));
