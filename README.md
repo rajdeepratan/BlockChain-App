@@ -1,5 +1,8 @@
 ## Block Chain Application - rdCoin
 
+## Package using in this applicatiom
+
+-crypto-js
 
 ## Requirements
 

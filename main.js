@@ -43,6 +43,24 @@ class Blockchain{
         this.chain.push(newBlock);
     
     }
+
+    //validation of blocks in block chain
+    isChainValid() {
+        for (let i = 1; i < this.chain.length; i++){
+            const currentBlock = this.chain[i];
+            const previousBlock = this.chain[i - 1];
+
+            if (currentBlock.hash !== currentBlock.calculateHash()) {
+                return false;
+            }
+
+            if (currentBlock.previousHash !== previousBlock.hash) {
+                return false;
+            }
+        }
+
+        return true;
+    }
 }
 
 //create rdCoin
@@ -50,4 +68,11 @@ let rdCoin = new Blockchain();
 rdCoin.addBlock(new Block(1, "10/06/2018", { amount: 4 }));
 rdCoin.addBlock(new Block(2, "12/06/2018", { amount: 10 }));
 
-console.log(JSON.stringify(rdCoin, null, 4));
+// console.log(JSON.stringify(rdCoin, null, 4));
+
+console.log('Blockchain valid? ' + rdCoin.isChainValid());
+
+console.log('Changing a block...');
+rdCoin.chain[1].data = { amount: 100 };
+
+console.log('Blockchain valid? ' + rdCoin.isChainValid());
