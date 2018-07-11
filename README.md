@@ -17,6 +17,8 @@
 
  - run `node main.js` from the home directory.
 
-
+## Branch Info
+- blockchain-validation : Basic setup for blockchain and it's validation
+- proof-of-work : Blockchain Mining and setting up difficulty in it's hash generation
 
 Enjoy the application
