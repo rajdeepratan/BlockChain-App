@@ -20,5 +20,6 @@
 ## Branch Info
 - blockchain-validation : Basic setup for blockchain and it's validation
 - proof-of-work : Blockchain Mining and setting up difficulty in it's hash generation
+- miner-rewards-and-transactions : Creating transaction object, Mining rewards, Mining trancations, get balance
 
 Enjoy the application
