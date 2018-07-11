@@ -20,5 +20,4 @@
 ## Branch Info
 - blockchain-validation : Basic setup for blockchain and it's validation
 
-
 Enjoy the application
